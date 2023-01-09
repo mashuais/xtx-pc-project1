@@ -1,39 +1,20 @@
 import { createStore } from 'vuex'
-// A模块
-const moduleA = {
-  state: {
-    username: 'moduleA'
-  }
-}
-// B模块
-const moduleB = {
-  namespaced: true,
-  state: {
-    username: 'moduleB'
-  },
-  getters: {
-    changeName(state) {
-      return state.username + 'BBB'
-    }
-  },
-  mutations: {
-    updateName(state) {
-      state.username = state.username + 'bbbbb'
-    }
-  },
-  actions: {
-    updateName({ commit }) {
-      setTimeout(() => {
-        commit('updateName')
-      }, 2000)
-    }
-  }
-}
+import createPersistedstate from 'vuex-persistedstate'
+import cart from './modules/cart.js'
+import category from './modules/category'
+import user from './modules/user.js'
 export default createStore({
   modules: {
-    moduleA,
-    moduleB
-  }
+    cart,
+    category,
+    user
+  },
+  plugins: [
+    createPersistedstate({
+      key: 'erabbit-client-pc-store',
+      paths: ['user', 'cart']
+    })
+  ]
 })
 
 // export default createStore({

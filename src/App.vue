@@ -1,29 +1,14 @@
 <template>
-  <div>
-    <p>{{ $store.state.moduleB.username }}</p>
-    <p>{{ $store.getters['moduleB/newName'] }}</p>
-    <button @click="mutationsFn">mutationsFn</button>
-    <button @click="actionFn">actionFn</button>
-  </div>
+  <!-- 一级路由 -->
+  <router-view></router-view>
 </template>
 
 <script>
-import { useStore } from 'vuex'
 export default {
-  name: 'App',
-  setup() {
-    const store = useStore()
-    const mutationsFn = () => {
-      store.commit('moduleB/updateName')
-    }
-    const actionFn = () => {
-      store.dispatch('moduleB/updateName')
-    }
-    return { mutationsFn, actionFn }
-  }
+
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>
