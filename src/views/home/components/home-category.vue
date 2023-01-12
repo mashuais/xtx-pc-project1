@@ -1,4 +1,5 @@
 <template>
+  <!-- 左侧分类 -->
   <div class='home-category' @mouseleave="categoryId = null">
     <ul class="menu">
       <li :class="{ active: categoryId === item.id }" v-for="item in menuList" :key="item.id"
@@ -9,6 +10,10 @@
             {{ sub.name }}
           </router-link>
         </template>
+        <span v-else>
+          <XtxSkeleton width="60px" height="18px" style="margin-right:5px" bg="rgba(255,255,255,0.2)" />
+          <XtxSkeleton width="50px" height="18px" bg="rgba(255,255,255,0.2)" />
+        </span>
       </li>
     </ul>
     <!-- 弹层 -->
@@ -18,7 +23,7 @@
       <ul v-if="currCategory && currCategory.goods && currCategory.goods.length">
         <li v-for="item in currCategory.goods" :key="item.id">
           <RouterLink to="/">
-            <img :src="item.picture" alt="">
+            <img v-lazyload="item.picture" alt="">
             <div class="info">
               <p class="name ellipsis-2">{{ item.name }}</p>
               <p class="desc ellipsis">{{ item.desc }}</p>
@@ -228,6 +233,20 @@ export default {
   &:hover {
     .layer {
       display: block;
+    }
+  }
+
+  .xtx-skeleton {
+    animation: fade 1s linear infinite alternate;
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0.2;
+    }
+
+    to {
+      opacity: 1;
     }
   }
 }
